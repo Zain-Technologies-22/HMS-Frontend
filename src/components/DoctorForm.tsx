@@ -34,7 +34,7 @@ const initialFormData: DoctorFormData = {
 };
 
 const fetchDoctor = async (id: string): Promise<DoctorFormData> => {
-  const response = await axios.get(`http://localhost:8000/api/doctors/doctors/${id}/`);
+  const response = await axios.get(`http://localhost:7000/api/doctors/doctors/${id}/`);
   return response.data;
 };
 
@@ -57,8 +57,8 @@ const DoctorForm: React.FC<DoctorFormProps> = ({ doctorId, onSubmitSuccess }) =>
   const mutation = useMutation<any, Error, DoctorFormData>({
     mutationFn: (data: DoctorFormData) =>
       doctorId
-        ? axios.put(`http://localhost:8000/api/doctors/doctors/${doctorId}/`, data)
-        : axios.post('http://localhost:8000/api/doctors/doctors/', data),
+        ? axios.put(`http://localhost:7000/api/doctors/doctors/${doctorId}/`, data)
+        : axios.post('http://localhost:7000/api/doctors/doctors/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
       onSubmitSuccess();

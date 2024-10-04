@@ -30,12 +30,12 @@ interface Schedule {
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 const fetchDoctor = async (id: string): Promise<Doctor> => {
-  const response = await axios.get(`http://localhost:8000/api/doctors/doctors/${id}/`);
+  const response = await axios.get(`http://localhost:7000/api/doctors/doctors/${id}/`);
   return response.data;
 };
 
 const fetchSchedules = async (id: string): Promise<Schedule[]> => {
-  const response = await axios.get(`http://localhost:8000/api/doctors/doctors/${id}/schedules/`);
+  const response = await axios.get(`http://localhost:7000/api/doctors/doctors/${id}/schedules/`);
   return response.data;
 };
 
@@ -56,7 +56,7 @@ export default function DoctorDetails({ id }: { id: string }) {
   
   const deleteMutation = useMutation({
     mutationFn: (scheduleId: number) => 
-      axios.delete(`http://localhost:8000/api/doctors/doctors/${id}/schedules/${scheduleId}/`),
+      axios.delete(`http://localhost:7000/api/doctors/doctors/${id}/schedules/${scheduleId}/`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['schedules', id] });
     },

@@ -30,7 +30,7 @@ export default function ScheduleForm({ doctorId }: { doctorId: string }) {
   const mutation = useMutation({
     mutationKey: ['addSchedule', doctorId],  // <-- Define mutationKey here
     mutationFn: (data: ScheduleFormData) =>
-      axios.post(`http://localhost:8000/api/doctors/doctors/${doctorId}/add_schedule/`, {
+      axios.post(`http://localhost:7000/api/doctors/doctors/${doctorId}/add_schedule/`, {
         ...data,
         day_of_week: parseInt(data.day_of_week),
       }),

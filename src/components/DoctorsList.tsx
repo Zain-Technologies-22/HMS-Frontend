@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
@@ -15,7 +16,7 @@ interface Doctor {
 }
 
 const fetchDoctors = async (): Promise<Doctor[]> => {
-  const response = await axios.get('http://localhost:8000/api/doctors/doctors/');
+  const response = await axios.get('http://localhost:7000/api/doctors/doctors/');
   console.log('API response:', response.data); // Debug log
   return response.data;
 };
@@ -33,10 +34,13 @@ export default function DoctorsList() {
   console.log('Doctors data:', doctors); // Debug log
 
   const deleteMutation = useMutation({
-    mutationFn: (id: number) => axios.delete(`http://localhost:8000/api/doctors/doctors/${id}/`),
+    mutationFn: (id: number) => axios.delete(`http://localhost:7000/api/doctors/doctors/${id}/`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['doctors'] });
-
+      alert('Doctor deleted successfully!'); // Feedback for deletion success
+    },
+    onError: (error) => {
+      alert('Failed to delete doctor: ' + (error as Error).message);
     },
   });
 
