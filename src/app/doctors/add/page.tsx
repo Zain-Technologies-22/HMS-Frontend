@@ -1,19 +1,20 @@
-'use client';
+import nextDynamic from 'next/dynamic';  // Renamed dynamic to nextDynamic to avoid conflict
+import { Suspense } from 'react';
 
-import DoctorForm from '../../../components/DoctorForm';
-import { useRouter } from 'next/navigation';
+// Keep the export named as 'dynamic' to match Next.js requirements
+export const dynamic = 'force-dynamic';
 
-export default function AddDoctorPage() {
-  const router = useRouter();
+const AddDoctorContent = nextDynamic(() => import('./AddDoctorPageContent'), { 
+  ssr: false,
+  loading: () => <p>Loading...</p>
+});
 
-  const handleSubmitSuccess = () => {
-    router.push('/doctors');
-  };
-
+const AddDoctorPage = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold mb-4">Add New Doctor</h1>
-      <DoctorForm onSubmitSuccess={handleSubmitSuccess} />
-    </div>
+    <Suspense fallback={<p>Loading...</p>}>
+      <AddDoctorContent />
+    </Suspense>
   );
-}
+};
+
+export default AddDoctorPage;

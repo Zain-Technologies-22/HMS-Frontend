@@ -1,15 +1,8 @@
-import React from 'react';
-import DoctorsList from '../../components/DoctorsList';
+// src/app/doctors/page.tsx
+import dynamic from 'next/dynamic';
 
-const DoctorsPage = () => {
-  return (
-    <>
-      <main className="container mx-auto p-4">
-        <h1 className="text-4xl font-bold mb-4">Doctors</h1>
-        <DoctorsList />
-      </main>
-    </>
-  );
-};
+const DoctorsList = dynamic(() => import('./DoctorsList'), { ssr: false });
 
-export default DoctorsPage;
+export default function DoctorsPage() {
+  return <DoctorsList />;
+}
